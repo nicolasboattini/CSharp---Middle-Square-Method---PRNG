@@ -8,10 +8,11 @@ int tam1, tam2, i, x, diff, numero1, numero2, count, seed, z;
 int[] secuencia = new int[100];
 do
 {
-    Console.WriteLine("Escriba semilla: ");
+    count = 0;
+    Console.WriteLine("Escriba semilla de 4 dígitos: ");
     semilla = Console.ReadLine();
-    tam1 = semilla.Length;
-} while (tam1 != 4);                              //Se verifica que la semilla sea obligatoriamente de 4 dígitos
+    tam1 = semilla.Length;  
+} while ((tam1 != 4) || (semilla[0] == '0' || (semilla[1]== '0' & semilla[2]=='0') || semilla[3]=='0'));                              //Se verifica que la semilla sea obligatoriamente de 4 dígitos y no contenga 2 o más ceros
 
 Console.WriteLine("Cantidad de digitos: " + tam1);
 numero1 = int.Parse(semilla);
@@ -45,7 +46,7 @@ for (i = 0; i <= 24; i++)
         numero1 = int.Parse(snumero3);          //Convertimos a entero la cadena anterior
         if (count >= 2)                         //Si la cadena posee más de dos números 0 entonces
         {
-            numero1 = numero1 * seed;           //Se multiplica el número actual por la semilla inicial para evitar degeneración
+            numero1 = numero1 + (seed*seed);           //Se multiplica el número actual por la semilla inicial para evitar degeneración
             snumero2 = numero1.ToString();      //Se vuelve a convertir en cadena
         }
     } while (count >= 2);                       //Y se vuelve a enviar al paso 1. para volver a verificar si aún sigue teniendo más de dos números 0 en la cadena.
@@ -60,9 +61,9 @@ for (i = 0; i <= 24; i++)
         z++;
     }
 }
-
-Console.WriteLine("Secuencia de Numero final:"); //Se imprime la secuencia final
-for (x = 0; x < 100; x++)
+Console.WriteLine("");
+Console.WriteLine("Secuencia de dígitos final:"); //Se imprime la secuencia final
+for (x = 0; x < secuencia.Length; x++)
 {
-    Console.WriteLine(" " + secuencia[x] + " |");
+    Console.Write($"  {secuencia[x]}");
 }
