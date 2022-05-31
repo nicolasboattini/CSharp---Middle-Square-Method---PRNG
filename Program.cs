@@ -89,17 +89,19 @@ namespace MetodosAleatorios
                 w = true;
                 Console.WriteLine("Inserte Valor Válido de a: ");
                 a = int.Parse(Console.ReadLine());
-                Console.WriteLine(a + "mod 2: " + (a%2) );
+                
                 z = ((a % 2) != 0);
-                Console.WriteLine(a + "mod 3: " + (a % 3));
+                //Verifies that a is impar
                 r = ((a % 3) != 0);
-                Console.WriteLine(a + "mod 5: " + (a % 5));
+                //Verifies that a isn't divisible by 3
                 v = ((a % 5) != 0);
+                //Verifies that a isn't divisible by 3
                 if (m % 4 == 0)
                 {
                     q = ((a - 1) % 4 == 0);
+                    //Verifies (a-1) mod 4 = 0 if 4 is factor of m
                 }
-                
+
                 {
                     for (int i = 1; i <= m; i++)
                     {
@@ -108,12 +110,12 @@ namespace MetodosAleatorios
                             if (w == true)
                             {
                                 w = ((a - 1) % i == 0);
+                                //Verifies (a-1) mod b = 0 for each prime factor of m
                             }
                         }
                     }
                 }
-            Console.WriteLine("Impar: " + z.ToString() + " Divisible por 3: " + r.ToString() + " Divisible por 5: " + v.ToString() + 
-                "(a-1) mod 4 = 0 si 4 es un factor de m = " + q.ToString() + "(a-1) mod b = 0 para b factor primo de m = " + w.ToString());
+            
             } while (!(z && (r || v) && q && w));
 
             do
@@ -121,8 +123,11 @@ namespace MetodosAleatorios
                 Console.WriteLine("Inserte Valor Válido de c: ");
                 c = int.Parse(Console.ReadLine());
                 q = ((c % 8) == 5);
+                //Verifies c mod 8 = 5
                 w = ((c % 2) != 0);
+                //Verfies c is Impar
                 v = RelativelyPrime(c, m);
+                //Verifies c is Relatively Prime to m
             } while (q && w && v);
 
             do
@@ -135,7 +140,8 @@ namespace MetodosAleatorios
 
             for (int i = 0; i < 99; i++)
             {
-                secuencia[i + 1] = ((a * secuencia[i] + c) % m);    
+                secuencia[i + 1] = ((a * secuencia[i] + c) % m);
+                //Implements Xi+1 = (a * Xi + c) mod m
             }
 
             return secuencia;
@@ -157,10 +163,6 @@ namespace MetodosAleatorios
             return true;
         }
 
-        /*public static bool RelativelyPrime(int a, int b)
-        { // Assumes a, b > 0
-            return (a < b) ? RelativelyPrime(b, a) : !(a % b)) ? (b == 1) :RelativelyPrime(b, a % b);
-        }*/
         public static int Gcd(int a, int b)
         {
             int t;
