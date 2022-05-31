@@ -12,8 +12,7 @@ namespace MetodosAleatorios
             int tam1, tam2, i, x, diff, numero1, numero2, count, seed, z;
             int[] secuencia = new int[100];
             do
-            {
-                count = 0;
+            {                
                 Console.WriteLine("Escriba semilla de 4 dígitos: ");
                 semilla = Console.ReadLine();
                 tam1 = semilla.Length;
@@ -45,13 +44,13 @@ namespace MetodosAleatorios
                     {
                         if (snumero3[x] == '0')
                         {
-                            count = count + 1;              //Contamos cuantos 0 existen en la cadena de 4 dígitos
+                            count++;              //Contamos cuantos 0 existen en la cadena de 4 dígitos
                         }
                     }
                     numero1 = int.Parse(snumero3);          //Convertimos a entero la cadena anterior
                     if (count >= 2)                         //Si la cadena posee más de dos números 0 entonces
                     {
-                        numero1 = numero1 + (seed * seed);           //Se multiplica el número actual por la semilla inicial para evitar degeneración
+                        numero1 += (seed * seed);           //Se multiplica el número actual por la semilla inicial para evitar degeneración
                         snumero2 = numero1.ToString();      //Se vuelve a convertir en cadena
                     }
                 } while (count >= 2);                       //Y se vuelve a enviar al paso 1. para volver a verificar si aún sigue teniendo más de dos números 0 en la cadena.
@@ -68,6 +67,117 @@ namespace MetodosAleatorios
             }            
             return secuencia;
         }
+
+        public static int[] LCM()
+        {
+            int x, a, c, m, p, d, k, pd;
+            bool z, r, v, q, w, s;
+            int[] secuencia = new int[100];
+            p = 2;                                                  //Base del Sistema
+            d = 64;                                                 //Bits por palabras
+            pd = p ^ (d - 1);
+            do
+            {
+                Console.WriteLine("Inserte Valor Válido de m: ");
+                m = int.Parse(Console.ReadLine());
+
+            } while (!IsPrime(m) && m > pd);
+
+            do
+            {
+                q = true;
+                w = true;
+                Console.WriteLine("Inserte Valor Válido de a: ");
+                a = int.Parse(Console.ReadLine());
+                Console.WriteLine(a + "mod 2: " + (a%2) );
+                z = ((a % 2) != 0);
+                Console.WriteLine(a + "mod 3: " + (a % 3));
+                r = ((a % 3) != 0);
+                Console.WriteLine(a + "mod 5: " + (a % 5));
+                v = ((a % 5) != 0);
+                if (m % 4 == 0)
+                {
+                    q = ((a - 1) % 4 == 0);
+                }
+                
+                {
+                    for (int i = 1; i <= m; i++)
+                    {
+                        if (m % i == 0 && IsPrime(i))
+                        {
+                            if (w == true)
+                            {
+                                w = ((a - 1) % i == 0);
+                            }
+                        }
+                    }
+                }
+            Console.WriteLine("Impar: " + z.ToString() + " Divisible por 3: " + r.ToString() + " Divisible por 5: " + v.ToString() + 
+                "(a-1) mod 4 = 0 si 4 es un factor de m = " + q.ToString() + "(a-1) mod b = 0 para b factor primo de m = " + w.ToString());
+            } while (!(z && (r || v) && q && w));
+
+            do
+            {
+                Console.WriteLine("Inserte Valor Válido de c: ");
+                c = int.Parse(Console.ReadLine());
+                q = ((c % 8) == 5);
+                w = ((c % 2) != 0);
+                v = RelativelyPrime(c, m);
+            } while (q && w && v);
+
+            do
+            {
+                Console.WriteLine("Inserte Valor Válido de x: ");
+                x = int.Parse(Console.ReadLine());
+            } while (x < 0);
+
+            secuencia[0] = x;
+
+            for (int i = 0; i < 99; i++)
+            {
+                secuencia[i + 1] = ((a * secuencia[i] + c) % m);    
+            }
+
+            return secuencia;
+
+         }
+
+        public static bool IsPrime(int number)
+        {
+            if (number <= 1) return false;
+            if (number == 2) return true;
+            if (number % 2 == 0) return false;
+
+            var boundary = (int)Math.Floor(Math.Sqrt(number));
+
+            for (int i = 3; i <= boundary; i += 2)
+                if (number % i == 0)
+                    return false;
+
+            return true;
+        }
+
+        /*public static bool RelativelyPrime(int a, int b)
+        { // Assumes a, b > 0
+            return (a < b) ? RelativelyPrime(b, a) : !(a % b)) ? (b == 1) :RelativelyPrime(b, a % b);
+        }*/
+        public static int Gcd(int a, int b)
+        {
+            int t;
+            while (b != 0)
+            {
+                t = a;
+                a = b;
+                b = t % b;
+            }
+            return a;
+        }
+
+        public static bool RelativelyPrime(int a, int b)
+        {
+            return Gcd(a, b) == 1;
+        }
+
     }
     class Program
     {
@@ -82,6 +192,17 @@ namespace MetodosAleatorios
                 case 1:
                     Console.Clear();
                     sequence = Metodos.MSM();
+                    Console.Clear();
+                    Console.WriteLine("Imprimiendo retorno: ");
+                    for (int x = 0; x < sequence.Length; x++)
+                    {
+                        Console.Write($"  {sequence[x]}");
+                    }
+                break;
+
+                case 2:
+                    Console.Clear();
+                    sequence = Metodos.LCM();
                     Console.Clear();
                     Console.WriteLine("Imprimiendo retorno: ");
                     for (int x = 0; x < sequence.Length; x++)
