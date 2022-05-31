@@ -70,18 +70,18 @@ namespace MetodosAleatorios
 
         public static int[] LCM()
         {
-            int x, a, c, m, p, d, k, pd;
-            bool z, r, v, q, w, s;
+            int x, a, c, m, p, d, pd;
+            bool z, r, v, q, w, s;                                  
             int[] secuencia = new int[100];
             p = 2;                                                  //Base del Sistema
             d = 64;                                                 //Bits por palabras
-            pd = p ^ (d - 1);
+            pd = p * (d - 1);
             do
             {
                 Console.WriteLine("Inserte Valor Válido de m: ");
                 m = int.Parse(Console.ReadLine());
 
-            } while (!IsPrime(m) && m > pd);
+            } while (!IsPrime(m) && m > pd);                         //Verifies that m is prime and < than pd-1
 
             do
             {
@@ -148,7 +148,7 @@ namespace MetodosAleatorios
 
          }
 
-        public static bool IsPrime(int number)
+        public static bool IsPrime(int number) //Comprueba si un número es Primo (extraído de internet)
         {
             if (number <= 1) return false;
             if (number == 2) return true;
@@ -163,7 +163,7 @@ namespace MetodosAleatorios
             return true;
         }
 
-        public static int Gcd(int a, int b)
+        public static int Gcd(int a, int b)     //Método utilizado para comprobar primos relativos (Extraido de internet)
         {
             int t;
             while (b != 0)
@@ -175,7 +175,7 @@ namespace MetodosAleatorios
             return a;
         }
 
-        public static bool RelativelyPrime(int a, int b)
+        public static bool RelativelyPrime(int a, int b) //Comprueba si dos números son primos entre sí (Extraído de internet)
         {
             return Gcd(a, b) == 1;
         }
@@ -193,6 +193,7 @@ namespace MetodosAleatorios
             switch(a){
                 case 1:
                     Console.Clear();
+                    Console.WriteLine("Método del Cuadrado Medio (MSM)");
                     sequence = Metodos.MSM();
                     Console.Clear();
                     Console.WriteLine("Imprimiendo retorno: ");
@@ -204,6 +205,7 @@ namespace MetodosAleatorios
 
                 case 2:
                     Console.Clear();
+                    Console.WriteLine("Método Congruencial Lineal (LCM)");
                     sequence = Metodos.LCM();
                     Console.Clear();
                     Console.WriteLine("Imprimiendo retorno: ");
